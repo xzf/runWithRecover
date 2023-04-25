@@ -1,4 +1,4 @@
-package errMock
+package runWithRecover
 
 import (
 	"bytes"

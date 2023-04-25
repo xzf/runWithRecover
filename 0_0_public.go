@@ -1,17 +1,9 @@
-package errMock
+package runWithRecover
 
 import (
 	"errors"
 	"fmt"
 )
-
-func PanicToErrMsg(callback func()) (errMsg string) {
-	defer func() {
-		errMsg = recoverPanic()
-	}()
-	callback()
-	return
-}
 
 func PanicToErr(callback func()) (err error) {
 	errMsg := PanicToErrMsg(callback)
@@ -19,6 +11,14 @@ func PanicToErr(callback func()) (err error) {
 		return
 	}
 	err = errors.New(errMsg)
+	return
+}
+
+func PanicToErrMsg(callback func()) (errMsg string) {
+	defer func() {
+		errMsg = recoverPanic()
+	}()
+	callback()
 	return
 }
 
